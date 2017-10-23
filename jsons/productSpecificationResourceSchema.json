@@ -1,0 +1,266 @@
+{
+    "title": "productSpecificationResourceSchema",
+    "type": "object",
+    "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" },
+        "href": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "productNumber": { "type": "string" },
+        "lastUpdate": { "type": "string", "format": "date-time" },
+        "lifecycleStatus": {
+            "type": "string",
+            "enum": ["In Study", "In Design", "In Test", "Active", "Launched", "Retired", "Obsolete", "Rejected"]
+        },
+        "validFor": {
+            "type": "object",
+            "properties": {
+                "startDateTime": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "endDateTime": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": ["startDateTime"]
+        },
+        "isBundle": { "type": "string" },
+        "brand": { "type": "string" },
+        "attachment": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "url": { "type": "string" },
+                    "href": { "type": "string" },
+                    "type": { "type": "string" }
+                }
+            }
+        },
+        "relatedParty": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "role": { "type": "string" },
+                    "href": { "type": "string" }
+                }
+            }
+        },
+        "bundleProductSpecification": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "href": { "type": "string" },
+                    "brand": { "type": "string" },
+                    "version": { "type": "string" },
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "lifecycleStatus": {
+                        "type": "string",
+                        "enum": ["In Study", "In Design", "In Test", "Active",
+                                 "Launched", "Retired", "Obsolete", "Rejected"]
+                    },
+                    "validFor": {
+                        "type": "object",
+                        "properties": {
+                            "startDateTime": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "endDateTime": {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        },
+                        "required": ["startDateTime"]
+                    },
+                    "version": { "type": "string" },
+                    "isBundle": { "type": "boolean" },
+                    "lifecycleStatus": {
+                        "type": "string",
+                        "enum": ["In Study", "In Design", "In Test", "Active",
+                                 "Launched", "Retired", "Obsolete", "Rejected"]
+                    }
+                },
+                "required": ["id", "href"]
+
+            },
+	    "minItems": 2
+        }
+    },
+    "productSpecification": {
+        "type": "object",
+        "properties": {
+            "id": { "type": "string" },
+            "href": { "type": "string" },
+            "brand": { "type": "string" },
+            "version": { "type": "string" },
+            "name": { "type": "string" },
+            "description": { "type": "string" },
+            "lifecycleStatus": {
+                "type": "string",
+                "enum": ["In Study", "In Design", "In Test", "Active",
+                         "Launched", "Retired", "Obsolete", "Rejected"]
+            },
+            "validFor": {
+                "type": "object",
+                "properties": {
+                    "startDateTime": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "endDateTime": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": ["startDateTime"]
+            },
+            "version": { "type": "string" },
+            "isBundle": { "type": "boolean" },
+            "lifecycleStatus": {
+                "type": "string",
+                "enum": ["In Study", "In Design", "In Test", "Active",
+                         "Launched", "Retired", "Obsolete", "Rejected"]
+            }
+        },
+        "required": ["id", "href", "name"]
+    },
+    "productSpecificationRelationship": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties": {
+                "id": { "type": "string" },
+                "href": { "type": "string" },
+                "type": { "type": "string" },
+                "validFor": {
+                    "type": "object",
+                    "properties": {
+                        "startDateTime": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "endDateTime": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    "required": ["startDateTime"]
+                }
+            }
+        }
+    },
+    "serviceSpecification": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties": {
+                "id": { "type": "string" },
+                "href": { "type": "string" },
+                "version": { "type": "string" },
+                "name": { "type": "string" }
+            }
+        }
+    },
+    "resourceSpecification": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties": {
+                "id": { "type": "string" },
+                "href": { "type": "string" },
+                "version": { "type": "string" },
+                "name": { "type": "string" }
+            }
+        }
+    },
+    "productSpecCharacteristic": {
+        "type": "array",
+        "items": [
+            {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "valueType": { "type": "string" },
+                    "configurable": { "type": "string", "enum": ["true", "false"] },
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "validFor": {
+                        "type": "object",
+                        "properties": {
+                            "startDateTime": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "endDateTime": {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        },
+                        "required": ["startDateTime"]
+                    }
+                },
+
+                "productSpecCharRelationship": {
+                    "type": "array",
+                    "items":
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "type": "string" },
+                            "id": { "type": "string" },
+                            "validFor": {
+                                "type": "object",
+                                "properties": {
+                                    "startDateTime": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "endDateTime": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    }
+                                },
+                                "required": ["startDateTime"]
+                            }
+                        }
+                    }
+                },
+                "productSpecCharacteristicValue": {
+                    "type": "array",
+                    "items": {
+                        "valueType": { "type": "string" },
+                        "default": { "type": "string", "enum": ["true", "false"] },
+                        "value": { "type": "string" },
+                        "unitOfMeasure": { "type": "string" },
+                        "valueFrom": { "type": "string" },
+                        "valueTo": { "type": "string" },
+                        "validFor": {
+                            "type": "object",
+                            "properties": {
+                                "startDateTime": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "endDateTime": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                }
+                            },
+                            "required": ["startDateTime"]
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

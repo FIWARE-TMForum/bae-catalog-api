@@ -1,0 +1,30 @@
+{
+    "title": "categoryResourceSchema",
+    "type": "object",
+    "properties": {
+	"id": { "type": "string" },
+        "href": { "type": "string" },
+	"version": { "type": "string" },
+	"lastUpdate": { "type": "string", "format": "date-time" },
+	"lifecycleStatus": {
+            "type": "string",
+            "enum": ["In Study", "In Design", "In Test", "Active", "Launched", "Retired", "Obsolete", "Rejected"]
+        },
+	"validFor": {
+            "type": "object",
+            "properties": {
+                "startDateTime": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+	    "required": ["startDateTime"]
+        },
+	"parentId": { "type": "string" },
+	"isRoot": { "type": "string", "enum": ["false", "true"] },
+	"name": { "type": "string" },
+	"description": { "type": "string" }	
+    },
+    "required": ["id", "href", "lastUpdate", "lifecycleStatus", "validFor", "parentId", "isRoot",
+		 "name", "description"]
+}
