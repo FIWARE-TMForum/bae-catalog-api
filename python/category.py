@@ -2,14 +2,14 @@ import json
 import jsonschema
 
 category_schema_path = "/home/samuel/FIWARE/ProductCatalogTest/jsons/categoryResourceSchema.json"
-json_example_path = "/home/samuel/FIWARE/ProductCatalogTest/categoryJSONExample.json"
+category_example_path = "/home/samuel/FIWARE/ProductCatalogTest/categoryJSONExample.json"
 
-json_example = json.load(open(json_example_path, 'r'))
-schema = json.load(open(category_schema_path, 'r'))
+category_json_example = json.load(open(category_example_path, 'r'))
+category_schema = json.load(open(category_schema_path, 'r'))
 
 class Category:
-    def __init__(self, j):
-        jsonschema.validate(json_example, schema)
+    def __init__(self, j, s):
+        jsonschema.validate(j, s)
         self.__j = j
 
     def is_valid(self):

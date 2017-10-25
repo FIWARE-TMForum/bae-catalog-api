@@ -99,7 +99,7 @@
                     }
                 },
                 "required": ["id", "href"]
-            }
+            },
 	    "minItems": 2
         },
         "serviceLevelAgreement": {
@@ -315,15 +315,66 @@
                                              "XDR","XOF","XPF","YER","ZAR","ZMW","ZWD"]
                                 },
                                 "percentage": { "type": "integer", "minimum": 0, "maximum": 100 },
-                                "recurringChargePeriod": { "type": "string" }
-                            }
-                        }
-                    }
-                }
-            ]
-        }
+                                "recurringChargePeriod": { "type": "string" },
+				"productOfferPriceAlteration": {
+				    "type": "object",
+				    "properties": {
+					"name": { "type": "string" },
+					"description": { "type": "string" },
+					"recurringChargePeriod": { "type": "string" },
+					"priceCondition": { "type": "string" },
+					"validFor": {
+					    "type": "object",
+					    "properties": {
+						"startDateTime": {
+						    "type": "string",
+						    "format": "date-time"
+						},
+						"endDateTime": {
+						    "type": "string",
+						    "format": "date-time"
+						}
+					    },
+					    "required": ["startDateTime"]
+					},
+					"priceType": {
+					    "type": "string",
+					    "enum": ["recurring", "one time", "usage"]
+					},
+					"unitOfMeasure": { "type": "string" },
+					"price": {
+					    "type": "object",
+					    "properties": {
+						"taxIncludedAmount": { "type": "string" },
+						"dutyFreeAmount": { "type": "string" },
+						"taxRate": { "type": "string" },
+						"currencyCode": {
+						    "type": "string",
+						    "enum": ["AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT",
+							     "BGN","BHD","BIF","BMD","BND","BOB","BRL","BSD","BTN","BWP","BYR","BZD","CAD","CDF",
+							     "CHF","CLP","CNY","COP","CRC","CUC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP",
+							     "ERN","ETB","EUR","FJD","FKP","GBP","GEL","GGP","GHS","GIP","GMD","GNF","GTQ","GYD",
+							     "HKD","HNL","HRK","HTG","HUF","IDR","ILS","IMP","INR","IQD","IRR","ISK","JEP","JMD",
+							     "JOD","JPY","KES","KGS","KHR","KMF","KPW","KRW","KWD","KYD","KZT","LAK","LKR","LRD",
+							     "LSL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRO","MUR","MVR","MWK","MXN",
+							     "MYR","MZN","NAD","NGN","NIO","NOK","NPR","NZD","OMR","PAB","PEN","PHP","PKR","PLN",
+							     "PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLL",
+							     "SOS","SPL","SRD","STD","SVC","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD",
+							     "TVD","TWD","TZS","UAH","UGX","USD","UYU","UZS","VEF","VND","VUV","WST","XAF","XCD",
+							     "XDR","XOF","XPF","YER","ZAR","ZMW","ZWD"]
+						},
+						"percentage": { "type": "integer", "minimum": 0, "maximum": 100 },
+						"recurringChargePeriod": { "type": "string" }
+					    }
+					}
+				    }
+				}
+			    }
+			}
+		    }
+		}
+	    ]
+	}
     },
-    "required": ["version", "lifecycleStatus", "isBundle", "productSpecification", "bundledProductOffering",
-		 "validFor", "relatedParty", "attachment", "productSpecificationRelationship",
-		 "resourceSpecification", "productSpecCharacteristic"]
+    "required": ["version", "lifecycleStatus", "isBundle", "productSpecification", "validFor"]
 }

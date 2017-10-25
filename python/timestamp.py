@@ -9,4 +9,4 @@ class Timestamp:
                                        int(r.group(5)), int(r.group(6)), 0, offset)
 
     def date(self):
-        return self.date.__str__()
+        return self.date
