@@ -13,15 +13,15 @@ catalog_schema = json.load(open(catalog_schema_path, 'r'))
 category_schema = json.load(open(category_schema_path, 'r'))
 
 class Catalog:
-    def __init__(self, j, s):
-        jsonschema.validate(j, s)
+    def __init__(self, j, s=None):
+        if s:
+            jsonschema.validate(j, s)
         self.__j = j
 
     @classmethod
     def build(cls, n, ty, cat, i, href):
         j = {'name': n, 'type': ty, 'category': cat, 'id': i, 'href': href}
-        return Catalog(j, catalog_schema)
-        
+        return Catalog(j)
         
     def get_data(self, data):
         return self.__j.get(data)
@@ -35,9 +35,12 @@ class Catalog:
                                                                             self.get_data("category"),
                                                                             self.get_data("relatedParty"))
 
-def main():
-    categoryEntity = category.Category(category_json_example, category_schema)
-    return Catalog.build('name','Product Catalog', [categoryEntity.get_all()], '42', 'https://www.github.com')
-
+def main(test):
+    if test == 1:
+        categoryEntity = category.Category(category_json_example, category_schema)
+        return Catalog.build('name','Product Catalog', [categoryEntity.get_all()], '42', 'https://www.github.com')
+    if test == 2:
+        return Catalog(catalog_json_example)
+    
 if __name__ == "main":
     main()
