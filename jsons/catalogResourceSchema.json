@@ -27,30 +27,54 @@
                     "format": "date-time"
                 }
             },
-	    "required": ["startDateTime", "endDateTime"]
+            "required": ["startDateTime", "endDateTime"]
         },
         "type": { "type": "string", "enum": ["Product Catalog", "Service Catalog", "Resource Catalog"] },
         "category": {
             "type": "array",
-            "properties": {
-                "id": { "type": "string" },
-                "version": { "type": "string" },
-                "href": { "type": "string" },
-                "name": { "type": "string" },
-                "description": { "type": "string" }
-
-            },
-            "required": ["id", "version", "href", "name", "description"]
+	    "items": {
+		"type": "object",
+		"properties": {
+                    "id": { "type": "string" },
+                    "href": { "type": "string" },
+                    "version": { "type": "string" },
+                    "lastUpdate": { "type": "string", "format": "date-time" },
+                    "lifecycleStatus": {
+			"type": "string",
+			"enum": ["In Study", "In Design", "In Test", "Active", "Launched", "Retired", "Obsolete", "Rejected"]
+                    },
+                    "validFor": {
+			"type": "object",
+			"properties": {
+                            "startDateTime": {
+				"type": "string",
+				"format": "date-time"
+                            }
+			},
+			"required": ["startDateTime"]
+                    },
+                    "parentId": {
+			"type": "string"
+                    },
+                    "isRoot": {
+			"type": "string",
+			"enum": ["false", "true"]	
+		    },
+		    "name": { "type": "string" },
+		    "description": { "type": "string" }
+		},
+		"required": ["name"]
+	    }
         },
         "relatedParty": {
-            "type": "array",
-            "properties": {
+	    "type": "array",
+	    "properties": {
                 "role": { "type": "string" },
                 "id": { "type": "string" },
                 "href": { "type": "string" }
-            },
-            "required": ["role", "id", "href"]
+	    },
+	    "required": ["role", "id", "href"]
         }
     },
-    "required": ["id", "version", "href", "name", "description", "category"]
+    "required": ["id", "href", "name", "category"]
 }

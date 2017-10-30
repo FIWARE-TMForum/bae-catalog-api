@@ -2,10 +2,10 @@ import json
 import jsonschema
 import category
 
-catalog_schema_path = "/home/samuel/FIWARE/ProductCatalogTest/jsons/catalogResourceSchema.json"
-catalog_example_path = "/home/samuel/FIWARE/ProductCatalogTest/catalogJSONExample.json"
-category_schema_path = "/home/samuel/FIWARE/ProductCatalogTest/jsons/categoryResourceSchema.json"
-category_example_path = "/home/samuel/FIWARE/ProductCatalogTest/categoryJSONExample.json"
+catalog_schema_path = "../jsons/catalogResourceSchema.json"
+catalog_example_path = "../jsons/catalogJSONExample.json"
+category_schema_path = "../jsons/categoryResourceSchema.json"
+category_example_path = "../jsons/catalogJSONExample.json"
 
 category_json_example = json.load(open(category_example_path, 'r'))
 catalog_json_example = json.load(open(catalog_example_path, 'r'))
@@ -18,9 +18,10 @@ class Catalog:
         self.__j = j
 
     @classmethod
-    def build(self, n, ty, cat, rel):
-        j = {'name': n, 'type': ty, 'category': cat, 'relatedParty': rel}
-        self.__init__(j, category_schema)
+    def build(cls, n, ty, cat, i, href):
+        j = {'name': n, 'type': ty, 'category': cat, 'id': i, 'href': href}
+        jsonschema.validate(j, catalog_schema)
+        return j
         
     def get_data(self, data):
         return self.__j.get(data)
@@ -36,8 +37,8 @@ class Catalog:
 
 def main():
     categoryEntity = category.Category(category_json_example, category_schema)
-    c = Catalog.build('name','type',categoryEntity.__dict__, 'relatedParty')
-    return c
+    print(categoryEntity.get_all())
+    print(Catalog.build('name','Product Catalog', [categoryEntity.get_all()], '42', 'https://www.github.com'))
 
 if __name__ == "main":
     main()
