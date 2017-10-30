@@ -20,8 +20,8 @@ class Catalog:
     @classmethod
     def build(cls, n, ty, cat, i, href):
         j = {'name': n, 'type': ty, 'category': cat, 'id': i, 'href': href}
-        jsonschema.validate(j, catalog_schema)
-        return j
+        return Catalog(j, catalog_schema)
+        
         
     def get_data(self, data):
         return self.__j.get(data)
@@ -37,8 +37,7 @@ class Catalog:
 
 def main():
     categoryEntity = category.Category(category_json_example, category_schema)
-    print(categoryEntity.get_all())
-    print(Catalog.build('name','Product Catalog', [categoryEntity.get_all()], '42', 'https://www.github.com'))
+    return Catalog.build('name','Product Catalog', [categoryEntity.get_all()], '42', 'https://www.github.com')
 
 if __name__ == "main":
     main()
