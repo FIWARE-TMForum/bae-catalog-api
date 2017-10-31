@@ -1,16 +1,5 @@
 import json
 import jsonschema
-import category
-
-catalog_schema_path = "../jsons/catalogResourceSchema.json"
-catalog_example_path = "../jsons/catalogJSONExample.json"
-category_schema_path = "../jsons/categoryResourceSchema.json"
-category_example_path = "../jsons/catalogJSONExample.json"
-
-category_json_example = json.load(open(category_example_path, 'r'))
-catalog_json_example = json.load(open(catalog_example_path, 'r'))
-catalog_schema = json.load(open(catalog_schema_path, 'r'))
-category_schema = json.load(open(category_schema_path, 'r'))
 
 class Catalog:
     def __init__(self, j, s=None):
@@ -28,19 +17,3 @@ class Catalog:
     
     def set_data(self, field, new_data):
         self.__j[field] = new_data
-
-    def to_string(self):
-        return "Catalog[<{}>, type={}, category={}, relatedParty={}]".format(self.get_data("name"),
-                                                                            self.get_data("type"),
-                                                                            self.get_data("category"),
-                                                                            self.get_data("relatedParty"))
-
-def main(test):
-    if test == 1:
-        categoryEntity = category.Category(category_json_example, category_schema)
-        return Catalog.build('name','Product Catalog', [categoryEntity.get_all()], '42', 'https://www.github.com')
-    if test == 2:
-        return Catalog(catalog_json_example)
-    
-if __name__ == "main":
-    main()

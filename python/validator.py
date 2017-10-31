@@ -14,7 +14,8 @@ schema_dict = {'<class \'catalog.Catalog\'>': ('_Catalog__j', catalog_schema_pat
 def validate(j, s):
     try:
         return jsonschema.validate(j, s) is None
-    except jsonschema.exceptions.ValidationError:
+    except jsonschema.exceptions.ValidationError as err:
+        print(err)
         return False
     
 def validator_selector(obj):
