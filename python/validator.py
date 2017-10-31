@@ -8,16 +8,18 @@ catalog_example_path = "../jsons/catalogJSONExample.json"
 category_schema_path = "../jsons/categoryResourceSchema.json"
 category_example_path = "../jsons/catalogJSONExample.json"
 
-def validate_catalog(j):
-    s = json.load(open(catalog_schema_path, 'r'))
+schema_dict = {'<class \'catalog.Catalog\'>': ('_Catalog__j', catalog_schema_path),
+                   '<class \'category.Category\'>': ('_Category__j', category_schema_path)}
+
+def validate(j, s):
     try:
-        jsonschema.validate(j, s)
+        return jsonschema.validate(j, s) is None
     except jsonschema.exceptions.ValidationError:
         return False
     
 def validator_selector(obj):
-    if type(obj) is catalog.Catalog:
-        return validate_catalog(obj.__dict__['_Catalog__j']) is None
+    t = schema_dict[str(type(obj))]
+    return validate(obj.__dict__[t[0]], json.load(open(t[1], 'r')))
 
 def main(test):
     catalog_ex = json.load(open(catalog_example_path, 'r'))
