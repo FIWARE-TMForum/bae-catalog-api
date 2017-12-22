@@ -1,53 +1,49 @@
 from rest_framework import serializers
 from catalogManagement.models import Category, ValidFor
+from datetime import datetime
 
-class ValidForSerializer(serializers.ModelSerializer):
+
+class ValidForSerializer(serializers.Serializer):
     class Meta:
         model = ValidFor
         fields = ('startDateTime', 'endDateTime')
 
-        
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ('id', 'href', 'version', 'lastUpdate', 'lifecycleStatus', 'validFor',
-                  'parentId', 'isRoot', 'name', 'description')
+    def validate(self, data):
+        print(data)
 
-            
 
-    id = serializers.IntegerField(read_only=True)
-    href = serializers.CharField()
-    version = serializers.CharField()
-    lastUpdate = serializers.DateTimeField(required=False)
-    lifecycleStatus = serializers.CharField()
-    validFor = ValidForSerializer(required=False)
-    parentId = serializers.CharField(required=False)
+class CategorySerializer(serializers.Serializer):
+    validFor_startDateTime = serializers.CharField(required=False)
+    validFor_endDateTime = serializers.CharField(required=False)
+    validFor = serializers.OrderedDict()
+    href = serializers.CharField(max_length=200)
+    version = serializers.CharField(max_length=200)
+    lastUpdate = serializers.CharField(required=False)
+    lifecycleStatus = serializers.CharField(max_length=10, required=False)
+    parentId = serializers.CharField(max_length=200, required=False)
     isRoot = serializers.BooleanField()
     name = serializers.CharField()
-    description = serializers.CharField()
-    
+    description = serializers.CharField(required=False)
+
+    def check_dates(self, start, end):
+        date_format = "%Y-%m-%dT%H:%M:%S"
+        startTime = datetime.strptime(start, date_format)
+        endTime = datetime.strptime(end, date_format)
+        if startTime > endTime:
+            raise serializers.ValidationError("finish must occur after start")
+        return True
+
+    def validate(self, attrs):
+        print("initial data:")
+        print(self.initial_data)
+        attrs.update(self.initial_data['validFor'])
+
+        print("pre-validation data:\n{}".format(attrs))
+        if self.check_dates(attrs['startDateTime'], attrs['endDateTime']):
+            return attrs
+
     def create(self, validated_data):
-        try:
-            v = validated_data.pop('validFor')
-        #validfor = ValidFor(v['startDateTime'], v['endDateTime'])
-
-            validfor = ValidFor.create(v['startDateTime'], v['endDateTime'])
-            validfor.save()
-        
-            return Category.objects.create(validFor=validfor, **validated_data)
-        except:
-            return Category.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.href = validated_data.get('href', instance.href)
-        instance.version = validated_data.get('version', instance.version)
-        instance.lastUpdate = validated_data.get('lastUpdate', instance.lastUpdate)
-        instance.lifecycleStatus = validated_data.get('lifecycleStatus', instance.lifecycleStatus)
-        instance.validFor = validated_data.get('validFor', instance.validFor)
-        instance.parentId = validated_data.get('parentId', instance.parentId)
-        instance.isRoot = validated_data.get('isRoot', instance.isRoot)
-        instance.name = validated_data.get('name', instance.name)
-        instance.description = validated_data.get('description', instance.description)
-        instance.save()
-        
-        return instance
+        print("Create from CategorySerializer: {}".format(validated_data))
+        return Category.objects.create(validFor_startDateTime=validated_data.pop('startDateTime'),
+                                       validFor_endDateTime=validated_data.pop('endDateTime'),
+                                       **validated_data)

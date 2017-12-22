@@ -8,9 +8,9 @@ urlpatterns = [
     # ex: /catalogManagement/category/5/
     url(r'^(category/[a-zA-Z\-]*(?P<category_id>[0-9]+))/$', views.CategoryDetail.as_view()),
     # ex: /polls/5/results/
-    #url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name='results'),
+    # url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name='results'),
     # ex: /polls/5/vote/
-    #url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
+    # url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
