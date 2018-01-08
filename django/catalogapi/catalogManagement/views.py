@@ -12,7 +12,7 @@ class CategoryListView(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ('href', 'version', 'lastUpdate', 'name', 'description', 'lifecycleStatus',
-                     'parentId', 'isRoot', 'validFor', )
+                     'parentId', 'isRoot',)
 
     def get(self, request, format=None):
         categories = Category.objects.all()
@@ -20,10 +20,10 @@ class CategoryListView(generics.ListCreateAPIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        print("request data in post:\n{}".format(request.data))
+        # print("request data in post:\n{}".format(request.data))
         serializer = CategorySerializer(data=request.data)
-        print("serializer dict:\n{}".format(serializer.__dict__))
-        print("initial data in serializer:\n{}".format(serializer.initial_data))
+        # print("serializer dict:\n{}".format(serializer.__dict__))
+        # print("initial data in serializer:\n{}".format(serializer.initial_data))
         if serializer.is_valid(serializer.initial_data):
             serializer.save()
             return Response(serializer.data)

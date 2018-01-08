@@ -5,14 +5,12 @@ def flatten_by_key(d, key):
     ret = {}
 
     for k, v in d.items():
-        if k is key:
+        if k == key:
             ret.update(flatten_dict_with_key(v, key))
         elif isinstance(v, dict):
             ret.update({k: flatten_by_key(v, key)})
         elif isinstance(v, list):
-            lst = []
-            for i in v:
-                lst.append(flatten_by_key(i, key))
+            lst = [flatten_by_key(i, key) for i in v]
             ret.update({k: lst})
         else:
             ret.update({k: v})
@@ -34,9 +32,7 @@ def unflatten_by_key(d, key):
         elif isinstance(v, dict):
             ret.update({k: unflatten_by_key(v, key)})
         elif isinstance(v, list):
-            lst = []
-            for i in v:
-                lst.append(unflatten_by_key(i, key))
+            lst = [unflatten_by_key(i, key) for i in v]
             ret.update({k: lst})
         else:
             ret.update({k: v})
@@ -61,7 +57,20 @@ class FlattenerMiddleware(object):
 
     def __call__(self, request):
         # before view
-        # req = json.loads(request.body.decode('utf-8'))
+
+        if request.body and request.META['REQUEST_METHOD'] != 'GET':
+            flattened_data = flatten_by_key(json.loads(request.body.decode('utf-8')), 'validFor')
+            request._body = json.dumps(flattened_data).encode('utf-8')
+
         response = self.get_response(request)
         # after view
+        if response.status_code == 200 or response.status_code == 201:
+            if isinstance(response.data, list):
+                for i in range(0, len(response.data) - 1):
+                    response.data[i] = unflatten_by_key(response.data[i], 'validFor')
+                response._container = [json.dumps(response.data).encode('utf-8')]
+            else:
+                response.data = unflatten_by_key(response.data, 'validFor')
+                response._container = [json.dumps(response.data).encode('utf-8')]
+
         return response

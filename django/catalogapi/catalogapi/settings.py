@@ -48,6 +48,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'catalogMiddleware.validatorMiddleware.ValidatorMiddleware',
+    'catalogMiddleware.flattenerMiddleware.FlattenerMiddleware',
     # 'django.middleware.security.SecurityMiddleware',
     # 'django.contrib.sessions.middleware.SessionMiddleware',
     # 'django.middleware.common.CommonMiddleware',
