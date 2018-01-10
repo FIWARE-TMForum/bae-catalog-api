@@ -3,16 +3,12 @@ from django.db import models
 # Create your models here.
 
 
-class ValidFor(models.Model):
-    startDateTime = models.CharField(max_length=200)
-    endDateTime = models.CharField(max_length=200, default=None, null=True, blank=True)
-
-
-# class RelatedParty(models.Model):
-#     href = models.CharField(max_length=200, default="", blank=True)
-#     validFor = models.ForeignKey(ValidFor, on_delete=models.CASCADE, default=None, null=True, blank=True)
-#     name = models.TextField(default='', blank=True)
-#     role = models.CharField(max_length=200, default="", blank=True)
+class RelatedParty(models.Model):
+    href = models.CharField(max_length=200, default="", blank=True)
+    validFor_startDateTime = models.DateTimeField(default=None, blank=True)
+    validFor_endDateTime = models.DateTimeField(default=None, blank=True)
+    name = models.TextField(default='', blank=True)
+    role = models.CharField(max_length=200, default="", blank=True)
 
 
 """
@@ -49,12 +45,11 @@ class Catalog(models.Model):
     href = models.CharField(max_length=200, default="", blank=True)
     version = models.CharField(max_length=200, default="", blank=True)
     lastUpdate = models.DateTimeField(default=None, blank=True)
-#    validFor_startDateTime = models.CharField(max_length=200, blank=True, default=None)
     validFor_startDateTime = models.DateTimeField(default=None, blank=True)
     validFor_endDateTime = models.DateTimeField(default=None, blank=True)
     lifecycleStatus = models.CharField(max_length=10, default=None, null=True, blank=True)
-#    type = models.CharField(max_length=200, default=None, blank=True)
-#    relatedParty = models.ForeignKey(RelatedParty, on_delete=models.CASCADE, default=None, blank=True)
+    type = models.CharField(max_length=200, default=None, blank=True)
+    relatedParty = models.ForeignKey(RelatedParty, on_delete=models.CASCADE, default=None, blank=True)
 
 
 # class Channel(models.Model):

@@ -4,9 +4,9 @@ from . import views
 
 urlpatterns = [
     # ex: /catalogManagement/category/
-    url(r'^category/$', views.CategoryListView.as_view()),
+    url(r'^category/?$', views.CategoryListView.as_view()),
     # ex: /catalogManagement/category/5/
-    url(r'^(category/[a-zA-Z\-]*(?P<category_id>[0-9]+))/$', views.CategoryDetail.as_view()),
+    url(r'^(category/[a-zA-Z\-]*(?P<pk>[0-9]+))/?$', views.CategoryDetailView.as_view()),
     # ex: /polls/5/results/
     # url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name='results'),
     # ex: /polls/5/vote/
