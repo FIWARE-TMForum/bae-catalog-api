@@ -64,13 +64,12 @@ class FlattenerMiddleware(object):
 
         response = self.get_response(request)
         # after view
-        if response.status_code == 200 or response.status_code == 201:
-            if isinstance(response.data, list):
-                for i in range(0, len(response.data) - 1):
-                    response.data[i] = unflatten_by_key(response.data[i], 'validFor')
-                response._container = [json.dumps(response.data).encode('utf-8')]
-            else:
-                response.data = unflatten_by_key(response.data, 'validFor')
-                response._container = [json.dumps(response.data).encode('utf-8')]
+
+        if isinstance(response.data, list):
+            response.data = [unflatten_by_key(response[x], 'validFor') for x in response.data]
+            response._container = [json.dumps(response.data).encode('utf-8')]
+        else:
+            response.data = unflatten_by_key(response.data, 'validFor')
+            response._container = [json.dumps(response.data).encode('utf-8')]
 
         return response

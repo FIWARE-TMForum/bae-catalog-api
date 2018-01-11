@@ -5,8 +5,10 @@ from . import views
 urlpatterns = [
     # ex: /catalogManagement/category/
     url(r'^category/?$', views.CategoryListView.as_view()),
+    url(r'^catalog/?$', views.CatalogListView.as_view()),
     # ex: /catalogManagement/category/5/
     url(r'^(category/[a-zA-Z\-]*(?P<pk>[0-9]+))/?$', views.CategoryDetailView.as_view()),
+    url(r'^(catalog/[a-zA-Z\-]*(?P<pk>[0-9]+))/?$', views.CatalogDetailView.as_view()),
     # ex: /polls/5/results/
     # url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name='results'),
     # ex: /polls/5/vote/

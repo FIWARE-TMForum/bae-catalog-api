@@ -1,10 +1,7 @@
 import django_filters.rest_framework
-from rest_framework.views import APIView
-from django.http import Http404
-from rest_framework import status, generics
-from rest_framework.response import Response
-from catalogManagement.models import Category
-from catalogManagement.serializers import CategorySerializer
+from rest_framework import generics
+from catalogManagement.models import Category, Catalog
+from catalogManagement.serializers import CategorySerializer, CatalogSerializer
 
 
 class CategoryListView(generics.ListCreateAPIView):
@@ -14,6 +11,18 @@ class CategoryListView(generics.ListCreateAPIView):
     filter_fields = ('href', 'version', 'lastUpdate', 'name', 'description', 'lifecycleStatus',
                      'parentId', 'isRoot',)
 
+
+class CatalogListView(generics.ListCreateAPIView):
+    queryset = Catalog.objects.all()
+    serializer_class = CatalogSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_fields = ('href', 'version', 'lastUpdate', 'lifecycleStatus',
+                     'lastUpdate', 'type',)
+
+
+class CatalogDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Catalog.objects.all()
+    serializer_class = CatalogSerializer
     # def get(self, request, format=None):
     #     categories = Category.objects.all()
     #     serializer = CategorySerializer(categories, many=True)

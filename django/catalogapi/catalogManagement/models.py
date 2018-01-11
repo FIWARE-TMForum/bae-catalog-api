@@ -3,45 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class RelatedParty(models.Model):
-    href = models.CharField(max_length=200, default="", blank=True)
-    validFor_startDateTime = models.DateTimeField(default=None, blank=True)
-    validFor_endDateTime = models.DateTimeField(default=None, blank=True)
-    name = models.TextField(default='', blank=True)
-    role = models.CharField(max_length=200, default="", blank=True)
-
-
-"""
-JSON Values: {
-    id,
-    href,
-    version,
-    lastUpdate,
-    lifecycleStatus,
-    parentId,
-    isRoot,
-    name,
-    description,
-    validFor: { startDateTime, endDateTime }
- }
-"""
-
-
-class Category(models.Model):
-    href = models.CharField(max_length=200, default="", blank=True)
-    version = models.CharField(max_length=200, default="", blank=True)
-    lastUpdate = models.DateTimeField(default=None, blank=True)
-    validFor_startDateTime = models.DateTimeField(default=None, blank=True)
-    validFor_endDateTime = models.DateTimeField(default=None, blank=True)
-    lifecycleStatus = models.CharField(max_length=10, default=None, null=True, blank=True)
-    parentId = models.CharField(max_length=200, default="")
-    isRoot = models.BooleanField(default=False)
-    name = models.TextField(default='', blank=True)
-    description = models.TextField(default='', blank=True)
-
-
 class Catalog(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None, blank=True)
     href = models.CharField(max_length=200, default="", blank=True)
     version = models.CharField(max_length=200, default="", blank=True)
     lastUpdate = models.DateTimeField(default=None, blank=True)
@@ -49,8 +11,29 @@ class Catalog(models.Model):
     validFor_endDateTime = models.DateTimeField(default=None, blank=True)
     lifecycleStatus = models.CharField(max_length=10, default=None, null=True, blank=True)
     type = models.CharField(max_length=200, default=None, blank=True)
-    relatedParty = models.ForeignKey(RelatedParty, on_delete=models.CASCADE, default=None, blank=True)
 
+
+class Category(models.Model):
+    href = models.CharField(max_length=200, default="", blank=True)
+    version = models.CharField(max_length=200, default="", blank=True, null=True)
+    lastUpdate = models.DateTimeField(default=None, blank=True, null=True)
+    validFor_startDateTime = models.DateTimeField(default=None, blank=True, null=True)
+    validFor_endDateTime = models.DateTimeField(default=None, blank=True, null=True)
+    lifecycleStatus = models.CharField(max_length=10, default=None, null=True, blank=True)
+    parentId = models.CharField(max_length=200, default="")
+    isRoot = models.BooleanField(default=False)
+    name = models.TextField(default='', blank=True)
+    description = models.TextField(default='', blank=True)
+    catalog = models.ForeignKey(Catalog, related_name='category', on_delete=models.CASCADE, default=None, blank=True, null=True)
+
+
+class RelatedParty(models.Model):
+    href = models.CharField(max_length=200, default="", blank=True, null=True)
+    validFor_startDateTime = models.DateTimeField(default=None, blank=True, null=True)
+    validFor_endDateTime = models.DateTimeField(default=None, blank=True, null=True)
+    name = models.TextField(default='', blank=True)
+    role = models.CharField(max_length=200, default="", blank=True, null=True)
+    catalog = models.ForeignKey(Catalog, related_name='relatedParty', on_delete=models.CASCADE, default=None, blank=True, null=True)
 
 # class Channel(models.Model):
 #     href = models.CharField(max_length=200, default="", blank=True)
