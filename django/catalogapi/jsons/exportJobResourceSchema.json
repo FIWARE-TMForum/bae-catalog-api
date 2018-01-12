@@ -1,0 +1,15 @@
+{
+    "title": "exportJobResourceSchema",
+    "type": "object",
+    "properties": {
+	"query": { "type": "string" },
+	"path": { "type": "string" },
+	"content-type": { "type": "string" },
+	"status": { "type": "string", "enum": ["notstarted", "running", "succeeded", "failed", "completed"] },
+	"url": { "type": "string", "format": "uri" },
+	"completionDate": { "type": "string", "format": "date-time" },
+	"creationDate": { "type": "string", "format": "date-time" },
+	"errorLog": { "type": "string" }
+    }
+    "required": ["query", "path", "content-type", "status", "url", "creationDate", "errorLog"]
+}
