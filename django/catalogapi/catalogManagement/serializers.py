@@ -15,11 +15,20 @@ class CategorySerializer(serializers.ModelSerializer):
             return data
         return data
 
+    def create(self, validated_data):
+        category, created = Category.objects.get_or_create(**validated_data)
+        category.save()
+        return category
+
 
 class RelatedPartySerializer(serializers.ModelSerializer):
     class Meta:
         model = RelatedParty
         fields = ('__all__')
+
+    def create(self, validated_data):
+        relatedParty, created = RelatedParty.objects.get_or_create(**validated_data)
+        return relatedParty
 
 
 class CatalogSerializer(serializers.ModelSerializer):
@@ -39,9 +48,11 @@ class CatalogSerializer(serializers.ModelSerializer):
         catalog = Catalog.objects.create(**validated_data)
 
         for category_data in categories_data:
-            Category.objects.create(catalog=catalog, **category_data)
+            c, created = Category.objects.get_or_create(catalog=catalog, **category_data)
+            print("se ha creado nuevo? {}".format(created))
         for relatedParty_data in relatedParties_data:
-            RelatedParty.objects.create(catalog=catalog, **relatedParty_data)
+            r, rcreated = RelatedParty.objects.get_or_create(catalog=catalog, **relatedParty_data)
+            print("se ha creado nuevo? {}".format(rcreated))
 
         return catalog
 

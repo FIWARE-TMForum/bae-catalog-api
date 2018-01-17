@@ -64,12 +64,15 @@ class FlattenerMiddleware(object):
 
         response = self.get_response(request)
         # after view
-
-        if isinstance(response.data, list):
-            response.data = [unflatten_by_key(response[x], 'validFor') for x in response.data]
-            response._container = [json.dumps(response.data).encode('utf-8')]
-        else:
-            response.data = unflatten_by_key(response.data, 'validFor')
-            response._container = [json.dumps(response.data).encode('utf-8')]
+#        import ipdb; ipdb.sset_trace()
+        try:
+            if isinstance(response.data, list):
+                response.data = [unflatten_by_key(x, 'validFor') for x in response.data]
+                response._container = [json.dumps(response.data).encode('utf-8')]
+            else:
+                response.data = unflatten_by_key(response.data, 'validFor')
+                response._container = [json.dumps(response.data).encode('utf-8')]
+        except:
+            return response
 
         return response

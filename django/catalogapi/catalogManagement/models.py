@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Catalog(models.Model):
-    href = models.CharField(max_length=200, default="", blank=True)
+    href = models.CharField(max_length=200, primary_key=True, default="")
     version = models.CharField(max_length=200, default="", blank=True)
     lastUpdate = models.DateTimeField(default=None, blank=True)
     validFor_startDateTime = models.DateTimeField(default=None, blank=True)
@@ -14,7 +14,7 @@ class Catalog(models.Model):
 
 
 class Category(models.Model):
-    href = models.CharField(max_length=200, default="", blank=True)
+    href = models.CharField(max_length=200, primary_key=True, default="")
     version = models.CharField(max_length=200, default="", blank=True, null=True)
     lastUpdate = models.DateTimeField(default=None, blank=True, null=True)
     validFor_startDateTime = models.DateTimeField(default=None, blank=True, null=True)
@@ -28,7 +28,7 @@ class Category(models.Model):
 
 
 class RelatedParty(models.Model):
-    href = models.CharField(max_length=200, default="", blank=True, null=True)
+    href = models.CharField(max_length=200, primary_key=True, default="")
     validFor_startDateTime = models.DateTimeField(default=None, blank=True, null=True)
     validFor_endDateTime = models.DateTimeField(default=None, blank=True, null=True)
     name = models.TextField(default='', blank=True)
