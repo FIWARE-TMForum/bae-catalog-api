@@ -17,8 +17,8 @@ class Category(models.Model):
     href = models.CharField(max_length=200, primary_key=True, default="")
     version = models.CharField(max_length=200, default="", blank=True, null=True)
     lastUpdate = models.DateTimeField(default=None, blank=True, null=True)
-    validFor_startDateTime = models.DateTimeField(default=None, blank=True, null=True)
-    validFor_endDateTime = models.DateTimeField(default=None, blank=True, null=True)
+    validFor_startDateTime = models.CharField(max_length=200, default=None, blank=True, null=True)
+    validFor_endDateTime = models.CharField(max_length=200, default=None, blank=True, null=True)
     lifecycleStatus = models.CharField(max_length=10, default=None, null=True, blank=True)
     parentId = models.CharField(max_length=200, default="")
     isRoot = models.BooleanField(default=False)
@@ -29,8 +29,8 @@ class Category(models.Model):
 
 class RelatedParty(models.Model):
     href = models.CharField(max_length=200, primary_key=True, default="")
-    validFor_startDateTime = models.DateTimeField(default=None, blank=True, null=True)
-    validFor_endDateTime = models.DateTimeField(default=None, blank=True, null=True)
+    validFor_startDateTime = models.CharField(max_length=200, default=None, blank=True, null=True)
+    validFor_endDateTime = models.CharField(max_length=200, default=None, blank=True, null=True)
     name = models.TextField(default='', blank=True)
     role = models.CharField(max_length=200, default="", blank=True, null=True)
     catalog = models.ForeignKey(Catalog, related_name='relatedParty', on_delete=models.CASCADE, default=None, blank=True, null=True)

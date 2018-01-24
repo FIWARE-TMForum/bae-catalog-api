@@ -36,6 +36,5 @@ class ValidatorMiddleware(object):
                 if v != []:
                     return HttpResponse(content=json.dumps({'error': v}, indent=4), status=400)
         response = self.get_response(request)
-        # print("Response: {}".format(response.data))
         # Code after view
         return response

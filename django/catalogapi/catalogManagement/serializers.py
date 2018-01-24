@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from catalogManagement.models import Category, Catalog, RelatedParty
+from datetime import datetime
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -11,7 +12,7 @@ class CategorySerializer(serializers.ModelSerializer):
         try:
             if data['validFor_startDateTime'] > data['validFor_endDateTime']:
                 raise serializers.ValidationError("endDate must occur after startDate")
-        except KeyError:
+        except:
             return data
         return data
 
@@ -45,7 +46,7 @@ class CatalogSerializer(serializers.ModelSerializer):
         print("related parties: {}".format(relatedParties_data))
         categories_data = validated_data.pop('category')
         print("categories: {}".format(categories_data))
-        catalog = Catalog.objects.create(**validated_data)
+        catalog = Catalog.objects.get_or_create(**validated_data)
 
         for category_data in categories_data:
             c, created = Category.objects.get_or_create(catalog=catalog, **category_data)
