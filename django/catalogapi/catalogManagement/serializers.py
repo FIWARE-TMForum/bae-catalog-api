@@ -1,6 +1,15 @@
 from rest_framework import serializers
 from catalogManagement.models import Category, Catalog, RelatedParty
-from datetime import datetime
+
+
+def create_href(model):
+    if model.href[len(model.href) - 1] == '/':
+        model.href = model.href + str(model.id)
+    else:
+        model.href = model.href + '/' + str(model.id)
+
+    model.save()
+    return model
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -17,9 +26,9 @@ class CategorySerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
+        print(validated_data)
         category, created = Category.objects.get_or_create(**validated_data)
-        category.save()
-        return category
+        return create_href(category)
 
 
 class RelatedPartySerializer(serializers.ModelSerializer):
@@ -29,7 +38,7 @@ class RelatedPartySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         relatedParty, created = RelatedParty.objects.get_or_create(**validated_data)
-        return relatedParty
+        return create_href(relatedParty)
 
 
 class CatalogSerializer(serializers.ModelSerializer):
@@ -42,20 +51,21 @@ class CatalogSerializer(serializers.ModelSerializer):
         depth = 6
 
     def create(self, validated_data):
+        import ipdb; ipdb.sset_trace()
         relatedParties_data = validated_data.pop('relatedParty')
-        print("related parties: {}".format(relatedParties_data))
+        # print("related parties: {}".format(relatedParties_data))
         categories_data = validated_data.pop('category')
-        print("categories: {}".format(categories_data))
+        # print("categories: {}".format(categories_data))
         catalog = Catalog.objects.get_or_create(**validated_data)
 
         for category_data in categories_data:
             c, created = Category.objects.get_or_create(catalog=catalog, **category_data)
-            print("se ha creado nuevo? {}".format(created))
+            # print("se ha creado nuevo? {}".format(created))
         for relatedParty_data in relatedParties_data:
             r, rcreated = RelatedParty.objects.get_or_create(catalog=catalog, **relatedParty_data)
-            print("se ha creado nuevo? {}".format(rcreated))
+            # print("se ha creado nuevo? {}".format(rcreated))
 
-        return catalog
+        return create_href(catalog)
 
 # class CatalogSerializer(serializers.ModelSerializer):
 #     catalog = GenericModelSerializer({Category: CategorySerializer()}, many=True)
