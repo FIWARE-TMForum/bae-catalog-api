@@ -51,21 +51,24 @@ class CatalogSerializer(serializers.ModelSerializer):
         depth = 6
 
     def create(self, validated_data):
-        import ipdb; ipdb.sset_trace()
+        # import ipdb; ipdb.sset_trace()
         relatedParties_data = validated_data.pop('relatedParty')
         # print("related parties: {}".format(relatedParties_data))
         categories_data = validated_data.pop('category')
         # print("categories: {}".format(categories_data))
-        catalog = Catalog.objects.get_or_create(**validated_data)
+        catalog, catalog_created = Catalog.objects.get_or_create(**validated_data)
 
         for category_data in categories_data:
-            c, created = Category.objects.get_or_create(catalog=catalog, **category_data)
+            try:
+                Category.objects.filter(href=dict(category_data)['href']).update(catalog=catalog)
+            except KeyError:
+                raise("There's no category with the href in request")
             # print("se ha creado nuevo? {}".format(created))
         for relatedParty_data in relatedParties_data:
-            r, rcreated = RelatedParty.objects.get_or_create(catalog=catalog, **relatedParty_data)
+            RelatedParty.objects.get_or_create(catalog=catalog, **relatedParty_data)
             # print("se ha creado nuevo? {}".format(rcreated))
 
-        return create_href(catalog)
+        return catalog
 
 # class CatalogSerializer(serializers.ModelSerializer):
 #     catalog = GenericModelSerializer({Category: CategorySerializer()}, many=True)

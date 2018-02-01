@@ -72,7 +72,7 @@
                     },
                     "description": { "type": "string" }
                 },
-                "required": ["id", "version", "href", "name"]
+                "required": ["id", "href"]
             }
         },
         "channel": {
@@ -84,7 +84,7 @@
                     "href": { "type": "string" },
                     "name": { "type": "string" }
                 },
-                "required": ["id", "href", "name"]
+                "required": ["id", "href"]
             }
         },
         "place": {
@@ -96,7 +96,7 @@
                     "href": { "type": "string" },
                     "name": { "type": "string" }
                 },
-                "required": ["id", "href", "name"]
+                "required": ["id", "href"]
             }
         },
         "bundledProductOffering": {
@@ -124,7 +124,7 @@
                 "href": { "type": "string" },
                 "name": { "type": "string" }
             },
-            "required": ["id", "href", "name"]
+            "required": ["id", "href"]
         },
         "productSpecification": {
             "type": "object",
@@ -216,7 +216,7 @@
                     "href": { "type": "string" },
                     "name": { "type": "string" }
                 },
-                "required": ["id", "href", "name"]
+                "required": ["id", "href"]
             }
         },
         "productOfferingTerm": {
