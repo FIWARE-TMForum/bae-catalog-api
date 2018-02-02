@@ -28,6 +28,15 @@ class CategorySerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         print(validated_data)
         category, created = Category.objects.get_or_create(**validated_data)
+        try:
+            if not validated_data['isRoot'] and 'parentId' in validated_data:
+                Category.objects.get(href=validated_data['parentId'])
+            else:
+                raise serializers.ValidationError("parentId non present in non root category")
+        except KeyError:
+            return create_href(category)
+        except Category.DoesNotExist:
+            raise serializers.ValidationError("parentId must be valid")
         return create_href(category)
 
 

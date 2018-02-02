@@ -2,7 +2,7 @@ import json
 
 
 def remove_blanks(d):
-    return {key: val for (key, val) in d.items() if ((val is not None) and (val != ''))}
+    return {key: val for (key, val) in d.items() if ((val is not None) and (val != '') and (val != []))}
 
 
 def flatten_by_key(d, key):
