@@ -39,5 +39,14 @@
         "isRoot": { "type": "boolean" },
         "name": { "type": "string" },
         "description": { "type": "string" }
-    }
+    },
+    "if": {
+	"properties": {
+	    "isRoot": { "enum": ["false"] }
+	}
+    },
+    "then": {
+	"required": ["parentId"]
+    },
+    "required": ["isRoot"]
 }
