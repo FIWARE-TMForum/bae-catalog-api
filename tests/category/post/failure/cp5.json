@@ -1,0 +1,7 @@
+{
+    "version": "1.0",
+    "lifecycleStatus": "Active",
+    "name": "category test 5",
+    "isRoot": false,
+    "description": "isRoot false, parentId non-present"
+}

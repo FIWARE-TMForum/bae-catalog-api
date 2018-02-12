@@ -1,0 +1,8 @@
+{
+    "version": "1.0",
+    "lifecycleStatus": "Active",
+    "parentId": "http://127.0.0.1:8000/catalogManagement/category/null",
+    "name": "category test 4",
+    "isRoot": false,
+    "description": "isRoot false, wrong parentId"
+}
