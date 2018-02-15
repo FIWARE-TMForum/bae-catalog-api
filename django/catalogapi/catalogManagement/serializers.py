@@ -15,7 +15,7 @@ def create_href(model):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('__all__')
+        exclude = ('catalog',)
 
     def validate(self, data):
         try:
@@ -45,7 +45,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class RelatedPartySerializer(serializers.ModelSerializer):
     class Meta:
         model = RelatedParty
-        fields = ('__all__')
+        exclude = ('catalog',)
 
     def create(self, validated_data):
         relatedParty, created = RelatedParty.objects.get_or_create(**validated_data)
