@@ -1,0 +1,16 @@
+{
+    "version": "1.0",
+    "lastUpdate": "2015-04-19T16:42:23.0Z",
+    "type": "Product Catalog",
+    "name": "catalog test 3",
+    "lifecyclestatus": "Active",
+    "description": "category non-present",
+    "category": [],
+    "relatedParty":
+    [
+	{
+	    "href": "http://127.0.0.1:8000/partyManagement/partyRole/3",
+	    "role": "Owner"
+	}
+    ]
+}

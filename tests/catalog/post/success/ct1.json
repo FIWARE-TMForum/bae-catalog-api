@@ -1,0 +1,32 @@
+{
+    "version": "1.0",
+    "lastUpdate": "2015-04-19T16:42:23.0Z",
+    "type": "Product Catalog",
+    "name": "catalog test 1",
+    "validFor": {
+	"startDateTime": "2015-04-19T16:42:23.0Z",
+	"endDateTime": "2016-04-19T16:42:23.0Z"
+    },
+    "lifecyclestatus": "Active",
+    "description": "full catalog",
+    "category":
+    [
+	{
+	    "href": "http://127.0.0.1:8000/catalogManagement/category/1"
+	},
+	{
+	    "href": "http://127.0.0.1:8000/catalogManagement/category/2"
+	}
+    ],
+    "relatedParty":
+    [
+	{
+	    "href": "http://127.0.0.1:8000/partyManagement/partyRole/1",
+	    "role": "Owner"
+	},
+	{
+	    "href": "http://127.0.0.1:8000/partyManagement/partyRole/2",
+	    "role": "Reviser"
+	}
+    ]
+}

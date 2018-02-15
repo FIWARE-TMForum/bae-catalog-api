@@ -1,0 +1,21 @@
+{
+    "version": "1.0",
+    "lastUpdate": "2015-04-19T16:42:23.0Z",
+    "type": "Product Catalog",
+    "name": "catalog test 2",
+    "lifecyclestatus": "Active",
+    "description": "minimum catalog",
+    "category":
+    [
+	{
+	    "href": "http://127.0.0.1:8000/catalogManagement/category/1"
+	}
+    ],
+    "relatedParty":
+    [
+	{
+	    "href": "http://127.0.0.1:8000/partyManagement/partyRole/3",
+	    "role": "Owner"
+	}
+    ]
+}
