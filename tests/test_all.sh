@@ -3,6 +3,7 @@
 # USAGE: test_all URL
 
 # flush db to keep integrity in tests
+echo 'Flushing database...'
 python3 ../django/catalogapi/manage.py flush --no-input
 
 # set default URL, localhost by default
@@ -14,8 +15,7 @@ fi
 
 # remove backup files (hi emacs users! :D)
 find . -name '*~' | xargs rm -f
-
-echo 'Category POST success:'
+echo -e 'Category POST success:'
 for i in $(ls category/post/success/); do
     echo $i
     cat $PWD/category/post/success/$i

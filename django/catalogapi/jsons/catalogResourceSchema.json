@@ -32,8 +32,7 @@
                         { "type": "string" }
                     ]
                 }
-            },
-            "required": ["startDateTime", "endDateTime"]
+            }
         },
         "type": { "type": "string", "enum": ["Product Catalog", "Service Catalog", "Resource Catalog"] },
         "category": {
@@ -69,8 +68,7 @@
                                     { "type": "string" }
                                 ]
                             }
-                        },
-                        "required": ["startDateTime"]
+                        }
                     },
                     "parentId": {
                         "type": "string"
@@ -81,8 +79,7 @@
                     },
                     "name": { "type": "string" },
                     "description": { "type": "string" }
-                },
-                "required": ["name"]
+                }
             }
         },
         "relatedParty": {
@@ -91,8 +88,7 @@
                 "role": { "type": "string" },
                 "id": { "type": "string" },
                 "href": { "type": "string" }
-            },
-            "required": ["role", "id", "href"]
+            }
         }
     }
 }

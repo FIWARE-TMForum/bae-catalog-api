@@ -28,13 +28,12 @@ class Category(models.Model):
 
 
 class RelatedParty(models.Model):
-    href = models.CharField(max_length=200, blank=True)
+    href = models.CharField(max_length=200, blank=True, unique=True)
     validFor_startDateTime = models.CharField(max_length=200, default=None, blank=True, null=True)
     validFor_endDateTime = models.CharField(max_length=200, default=None, blank=True, null=True)
     name = models.TextField(default='', blank=True)
     role = models.CharField(max_length=200, default="", blank=True, null=True)
     catalog = models.ForeignKey(Catalog, related_name='relatedParty', on_delete=models.CASCADE, default=None, blank=True, null=True)
-    id = models.CharField(max_length=200, primary_key=True, unique=True)
 # class Channel(models.Model):
 #     href = models.CharField(max_length=200, default="", blank=True)
 #     version = models.CharField(max_length=200, default="", blank=True)

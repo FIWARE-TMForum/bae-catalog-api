@@ -79,7 +79,7 @@ class CatalogSerializer(serializers.ModelSerializer):
             RelatedParty.objects.get_or_create(catalog=catalog, **relatedParty_data)
             # print("se ha creado nuevo? {}".format(rcreated))
 
-        return catalog
+        return create_href(catalog)
 
 # class CatalogSerializer(serializers.ModelSerializer):
 #     catalog = GenericModelSerializer({Category: CategorySerializer()}, many=True)
