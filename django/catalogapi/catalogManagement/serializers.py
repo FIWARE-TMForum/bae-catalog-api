@@ -70,10 +70,11 @@ class CatalogSerializer(serializers.ModelSerializer):
         catalog, catalog_created = Catalog.objects.get_or_create(**validated_data)
 
         for category_data in categories_data:
-            try:
-                Category.objects.filter(href=dict(category_data)['href']).update(catalog=catalog)
-            except KeyError:
-                raise("There's no category with the href in request")
+            category_filtered = Category.objects.filter(href=dict(category_data).get('href'))
+            if not category_filtered:
+                raise serializers.ValidationError("There's no category with the href in request")
+            else:
+                category_filtered.update(catalog=catalog)
             # print("se ha creado nuevo? {}".format(created))
         for relatedParty_data in relatedParties_data:
             RelatedParty.objects.get_or_create(catalog=catalog, **relatedParty_data)

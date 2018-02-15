@@ -43,7 +43,7 @@ def unflatten_by_key(d, key):
     if ret[key] == {}:
         ret.pop(key)
 
-    return ret
+    return remove_blanks(ret)
 
 
 def flatten_dict_with_key(d, key):

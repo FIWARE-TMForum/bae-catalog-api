@@ -7,8 +7,8 @@ class Catalog(models.Model):
     href = models.CharField(max_length=200, blank=True)
     version = models.CharField(max_length=200, default="", blank=True)
     lastUpdate = models.DateTimeField(default=None, blank=True)
-    validFor_startDateTime = models.DateTimeField(default=None, blank=True)
-    validFor_endDateTime = models.DateTimeField(default=None, blank=True)
+    validFor_startDateTime = models.DateTimeField(default=None, blank=True, null=True)
+    validFor_endDateTime = models.DateTimeField(default=None, blank=True, null=True)
     lifecycleStatus = models.CharField(max_length=10, default=None, null=True, blank=True)
     type = models.CharField(max_length=200, default=None, blank=True)
 
