@@ -1,0 +1,14 @@
+{
+    "version": "1.0",
+    "lastUpdate": "2015-04-19T16:42:23.0Z",
+    "type": "Product Catalog",
+    "name": "catalog test 4",
+    "lifecyclestatus": "Active",
+    "description": "relatedParty non-present",
+    "category": [
+	{
+	    "href": "http://127.0.0.1:8000/catalogManagement/category/1"
+	}
+    ],
+    "relatedParty": []
+}

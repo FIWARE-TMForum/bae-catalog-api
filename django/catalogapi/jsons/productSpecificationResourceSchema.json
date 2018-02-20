@@ -17,12 +17,16 @@
             "type": "object",
             "properties": {
                 "startDateTime": {
-                    "type": "string",
-                    "format": "date-time"
+                    "anyOf": [
+                        { "type": "string", "format": "date-time" },
+                        { "type": "string" }
+                    ]
                 },
                 "endDateTime": {
-                    "type": "string",
-                    "format": "date-time"
+                    "anyOf": [
+                        { "type": "string", "format": "date-time" },
+                        { "type": "string" }
+                    ]
                 }
             },
             "required": ["startDateTime"]
@@ -72,12 +76,16 @@
                         "type": "object",
                         "properties": {
                             "startDateTime": {
-                                "type": "string",
-                                "format": "date-time"
+                                "anyOf": [
+                                    { "type": "string", "format": "date-time" },
+                                    { "type": "string" }
+                                ]
                             },
                             "endDateTime": {
-                                "type": "string",
-                                "format": "date-time"
+                                "anyOf": [
+                                    { "type": "string", "format": "date-time" },
+                                    { "type": "string" }
+                                ]
                             }
                         },
                         "required": ["startDateTime"]
@@ -93,7 +101,7 @@
                 "required": ["id", "href"]
 
             },
-	    "minItems": 2
+            "minItems": 2
         }
     },
     "productSpecification": {
@@ -114,12 +122,16 @@
                 "type": "object",
                 "properties": {
                     "startDateTime": {
-                        "type": "string",
-                        "format": "date-time"
+                        "anyOf": [
+                            { "type": "string", "format": "date-time" },
+                            { "type": "string" }
+                        ]
                     },
                     "endDateTime": {
-                        "type": "string",
-                        "format": "date-time"
+                        "anyOf": [
+                            { "type": "string", "format": "date-time" },
+                            { "type": "string" }
+                        ]
                     }
                 },
                 "required": ["startDateTime"]
@@ -146,12 +158,16 @@
                     "type": "object",
                     "properties": {
                         "startDateTime": {
-                            "type": "string",
-                            "format": "date-time"
+                            "anyOf": [
+                                { "type": "string", "format": "date-time" },
+                                { "type": "string" }
+                            ]
                         },
                         "endDateTime": {
-                            "type": "string",
-                            "format": "date-time"
+                            "anyOf": [
+                                { "type": "string", "format": "date-time" },
+                                { "type": "string" }
+                            ]
                         }
                     },
                     "required": ["startDateTime"]
@@ -198,12 +214,16 @@
                         "type": "object",
                         "properties": {
                             "startDateTime": {
-                                "type": "string",
-                                "format": "date-time"
+                                "anyOf": [
+                                    { "type": "string", "format": "date-time" },
+                                    { "type": "string" }
+                                ]
                             },
                             "endDateTime": {
-                                "type": "string",
-                                "format": "date-time"
+                                "anyOf": [
+                                    { "type": "string", "format": "date-time" },
+                                    { "type": "string" }
+                                ]
                             }
                         },
                         "required": ["startDateTime"]
@@ -222,12 +242,16 @@
                                 "type": "object",
                                 "properties": {
                                     "startDateTime": {
-                                        "type": "string",
-                                        "format": "date-time"
+                                        "anyOf": [
+                                            { "type": "string", "format": "date-time" },
+                                            { "type": "string" }
+                                        ]
                                     },
                                     "endDateTime": {
-                                        "type": "string",
-                                        "format": "date-time"
+                                        "anyOf": [
+                                            { "type": "string", "format": "date-time" },
+                                            { "type": "string" }
+                                        ]
                                     }
                                 },
                                 "required": ["startDateTime"]
@@ -248,12 +272,16 @@
                             "type": "object",
                             "properties": {
                                 "startDateTime": {
-                                    "type": "string",
-                                    "format": "date-time"
+                                    "anyOf": [
+                                        { "type": "string", "format": "date-time" },
+                                        { "type": "string" }
+                                    ]
                                 },
                                 "endDateTime": {
-                                    "type": "string",
-                                    "format": "date-time"
+                                    "anyOf": [
+                                        { "type": "string", "format": "date-time" },
+                                        { "type": "string" }
+                                    ]
                                 }
                             },
                             "required": ["startDateTime"]

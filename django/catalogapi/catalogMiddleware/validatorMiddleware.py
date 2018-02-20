@@ -29,13 +29,15 @@ class ValidatorMiddleware(object):
         # ipdb.sset_trace()
         # Code before view
         if request.body and request.META['REQUEST_METHOD'] != 'GET':
-            req = json.loads(request.body.decode('utf-8'))
+            try:
+                req = json.loads(request.body.decode('utf-8'))
+            except json.decoder.JSONDecodeError as err:
+                return HttpResponse(content=json.dumps({'error': "JSON request malformed"}), status=400)
             # print(req)
             if req is not '':
                 v = validate(req, validator_selector(request.META['PATH_INFO']))
                 if v != []:
                     return HttpResponse(content=json.dumps({'error': v}, indent=4), status=400)
         response = self.get_response(request)
-        # print("Response: {}".format(response.data))
         # Code after view
         return response

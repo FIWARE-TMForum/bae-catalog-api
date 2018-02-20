@@ -1,6 +1,10 @@
 import json
 
 
+def remove_blanks(d):
+    return {key: val for (key, val) in d.items() if ((val is not None) and (val != '') and (val != []))}
+
+
 def flatten_by_key(d, key):
     ret = {}
 
@@ -26,20 +30,20 @@ def unflatten_by_key(d, key):
         nk = k.split("_")
         if (len(nk) > 1) and (nk[0] == key):
             try:
-                ret[key].update({nk[1]: v})
+                ret[key].update(remove_blanks({nk[1]: v}))
             except KeyError:
                 continue
         elif isinstance(v, dict):
-            ret.update({k: unflatten_by_key(v, key)})
+            ret.update({k: remove_blanks(unflatten_by_key(v, key))})
         elif isinstance(v, list):
-            lst = [unflatten_by_key(i, key) for i in v]
+            lst = [remove_blanks(unflatten_by_key(i, key)) for i in v]
             ret.update({k: lst})
         else:
-            ret.update({k: v})
+            ret.update(remove_blanks({k: v}))  # remove blanks in response!
     if ret[key] == {}:
         ret.pop(key)
 
-    return ret
+    return remove_blanks(ret)
 
 
 def flatten_dict_with_key(d, key):
@@ -64,12 +68,15 @@ class FlattenerMiddleware(object):
 
         response = self.get_response(request)
         # after view
-
-        if isinstance(response.data, list):
-            response.data = [unflatten_by_key(response[x], 'validFor') for x in response.data]
-            response._container = [json.dumps(response.data).encode('utf-8')]
-        else:
-            response.data = unflatten_by_key(response.data, 'validFor')
-            response._container = [json.dumps(response.data).encode('utf-8')]
+#        import ipdb; ipdb.sset_trace()
+        try:
+            if isinstance(response.data, list):
+                response.data = [unflatten_by_key(x, 'validFor') for x in response.data]
+                response._container = [json.dumps(response.data).encode('utf-8')]
+            else:
+                response.data = unflatten_by_key(response.data, 'validFor')
+                response._container = [json.dumps(response.data).encode('utf-8')]
+        except:
+            return response
 
         return response
